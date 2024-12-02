@@ -26,3 +26,6 @@ WordCounter:
 TopKeyWords:
 [('et', 56), ('dolor', 31), ('sed', 27), ('diam', 27), ('lorem', 26), ('ipsum', 26), ('sit', 26), ('dolore', 25), ('ut', 24), ('magna', 16)]
 
+Summary:
+[{'summary_text': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat volutpat . Stet clita kasd gubergren, no sea takimata sanctus est Loremem, sits at vero eos '}]
+

@@ -6,14 +6,26 @@ from transformers import pipeline
 
 class Summary(Plugin):
     def execute(self, input: string, output: string):
+        """
+        Executes the summarization process on the input file and saves the summary to the output file.
+        Args:
+            input (str): The path to the input file containing the text to be summarized.
+            output (str): The path to the output file where the summary will be saved.
+        Returns:
+            str: The generated summary of the input text.
+        """
         content = self.core.read_file(input)
 
         words_count = int(len(content.split()))
-        min_lenth = round(words_count / 10)
-        max_lenth = round(words_count / 2)
+        min_length = round(words_count / 10)
+        max_length = round(words_count / 2)
 
-        summarizer = pipeline("summarization", model="Falconsai/text_summarization", device=0) # load ML model
-        summary = summarizer(content, max_length=max_lenth, min_length=min_lenth, do_sample=False)
+        summarizer = pipeline(
+            "summarization", model="Falconsai/text_summarization", device=0
+        )  # load ML model
+        summary = summarizer(
+            content, max_length=max_length, min_length=min_length, do_sample=False
+        )
         self.core.save_file(str(summary), output, self.name)
 
         log_message = "Summary: Generated summary from inout" + str(summary)
