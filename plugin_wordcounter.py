@@ -4,13 +4,13 @@ from core import *
 
 
 class WordCounter(Plugin):
-    def execute(self, input):
+    def execute(self, input, output):
         content = self.core.read_file(input)
 
-        content = self.core.to_lower(content)
+        word_count = len(content.split())
 
-        words = content.split()
+        self.core.save_file(str(word_count), output, self.name)
 
-        word_count = Counter(words).most_common(10)
-        self.core.log(LogType.INFORMATION, "Generated most common words from given input:" + str(word_count))
+        log_message = "WordCounter: file from path",input,"conatins",str(word_count),"words"
+        self.core.log(LogType.INFORMATION, log_message)
         return word_count

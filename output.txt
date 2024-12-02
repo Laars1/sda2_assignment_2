@@ -1,0 +1,28 @@
+[('et', 56), ('dolor', 31), ('sed', 27), ('diam', 27), ('lorem', 26), ('ipsum', 26), ('sit', 26), ('dolore', 25), ('ut', 24), ('magna', 16)][('et', 56), ('dolor', 31), ('sed', 27), ('diam', 27), ('lorem', 26), ('ipsum', 26), ('sit', 26), ('dolore', 25), ('ut', 24), ('magna', 16)][('et', 56), ('dolor', 31), ('sed', 27), ('diam', 27), ('lorem', 26), ('ipsum', 26), ('sit', 26), ('dolore', 25), ('ut', 24), ('magna', 16)]
+[('et', 56), ('dolor', 31), ('sed', 27), ('diam', 27), ('lorem', 26), ('ipsum', 26), ('sit', 26), ('dolore', 25), ('ut', 24), ('magna', 16)]
+[('et', 56), ('dolor', 31), ('sed', 27), ('diam', 27), ('lorem', 26), ('ipsum', 26), ('sit', 26), ('dolore', 25), ('ut', 24), ('magna', 16)]
+980
+980
+980
+980
+[('et', 56), ('dolor', 31), ('sed', 27), ('diam', 27), ('lorem', 26), ('ipsum', 26), ('sit', 26), ('dolore', 25), ('ut', 24), ('magna', 16)]
+980
+[('et', 56), ('dolor', 31), ('sed', 27), ('diam', 27), ('lorem', 26), ('ipsum', 26), ('sit', 26), ('dolore', 25), ('ut', 24), ('magna', 16)]
+WordCounter
+980
+
+TopKeyWords
+[('et', 56), ('dolor', 31), ('sed', 27), ('diam', 27), ('lorem', 26), ('ipsum', 26), ('sit', 26), ('dolore', 25), ('ut', 24), ('magna', 16)]
+
+WordCounter:
+980
+
+TopKeyWords:
+[('et', 56), ('dolor', 31), ('sed', 27), ('diam', 27), ('lorem', 26), ('ipsum', 26), ('sit', 26), ('dolore', 25), ('ut', 24), ('magna', 16)]
+
+WordCounter:
+980
+
+TopKeyWords:
+[('et', 56), ('dolor', 31), ('sed', 27), ('diam', 27), ('lorem', 26), ('ipsum', 26), ('sit', 26), ('dolore', 25), ('ut', 24), ('magna', 16)]
+
