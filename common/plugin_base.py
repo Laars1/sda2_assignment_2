@@ -6,5 +6,5 @@ class Plugin(ABC):
         self.core = core
  
     @abstractmethod
-    def execute(self, text):
+    def execute(self, input):
         pass
