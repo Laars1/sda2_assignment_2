@@ -17,12 +17,12 @@ class Summary(Plugin):
         content = self.core.read_file(input)
 
         words_count = int(len(content.split()))
-        min_length = round(words_count / 10)
+
+        # TODO: Check what parameters min_length & max_length actually do
+        min_length = round(words_count / 8)
         max_length = round(words_count / 2)
 
-        summarizer = pipeline(
-            "summarization", model="Falconsai/text_summarization", device=0
-        )  # load ML model
+        summarizer = pipeline("summarization", model="Falconsai/text_summarization")  # load ML model
         summary = summarizer(
             content, max_length=max_length, min_length=min_length, do_sample=False
         )

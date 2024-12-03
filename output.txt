@@ -29,3 +29,21 @@ TopKeyWords:
 Summary:
 [{'summary_text': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat volutpat . Stet clita kasd gubergren, no sea takimata sanctus est Loremem, sits at vero eos '}]
 
+Summary:
+[{'summary_text': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat volutpat . Stet clita kasd gubergren, no sea takimata sanctus est Loremem, sits at vero eos '}]
+
+Summary:
+[{'summary_text': 'In Georgien haben die Parlamentswahlen am 26. Oktober 2024 zu erheblichen politischen Spannungen gef14hrt, die in den aktuellen Protesten gipfeln . Die Opposition erkannte die offiziellen Ergebnisse nicht an und warf der Regierung Wahlbetrug vor . In den letzten Tagen haben die EU-Beitrittsgesprche bis 2028 auszusetzen, verstrkte den Unmut der Bevlkerung, die mehr'}]
+
+Summary:
+[{'summary_text': 'In Georgien haben die Parlamentswahlen am 26. Oktober 2024 zu erheblichen politischen Spannungen gef14hrt, die in den aktuellen Protesten gipfeln . Die Opposition erkannte die offiziellen Ergebnisse nicht an und warf der Regierung Wahlbetrug vor . In den letzten Tagen haben die EU-Beitrittsgesprche bis 2028 auszusetzen, verstrkte die Unregelmssigkeiten, darunter Einsch «Khachap . . die .'}]
+
+WordCounter:
+1022
+
+TopKeyWords:
+[('die', 56), ('und', 28), ('der', 27), ('in', 26), ('den', 17), ('zu', 15), ('mit', 11), ('â€“', 10), ('auf', 8), ('eine', 8)]
+
+Summary:
+[{'summary_text': 'In Georgien haben die Parlamentswahlen am 26. Oktober 2024 zu erheblichen politischen Spannungen gef14hrt, die in den aktuellen Protesten gipfeln . Die Opposition erkannte die offiziellen Ergebnisse nicht an und warf der Regierung Wahlbetrug vor . In den letzten Tagen haben die EU-Beitrittsgesprche bis 2028 auszusetzen, verstrkte die Unregelmssigkeiten, darunter Einsch «Khachap . . die .'}]
+
