@@ -5,8 +5,9 @@ from core.core import *
 
 class WordCounter(Plugin):
     def register(self, core):
+        self.core = core
         core.register_plugin(self)
-        
+
     def execute(self, input, output):
         """
         Executes the word counting process on the given input file and saves the result to the output file.
@@ -24,12 +25,6 @@ class WordCounter(Plugin):
 
         self.core.save_file(str(word_count), output, self.name)
 
-        log_message = (
-            "WordCounter: file from path",
-            input,
-            "conatins",
-            str(word_count),
-            "words",
-        )
+        log_message = "WordCounter: file from path "+input+" conatins "+str(word_count)+" words"
         self.core.log(LogType.INFORMATION, log_message)
         return word_count

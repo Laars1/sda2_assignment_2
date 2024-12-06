@@ -1,28 +1,46 @@
-import logging
 from pathlib import Path
 from common.log_type import LogType
 import string
 
+from plugins.plugin_summary import Summary
+from plugins.plugin_topkeywords import TopKeyWords
+from plugins.plugin_wordcounter import WordCounter
+
 
 class CoreKernal:
-    def __init__(self):
+    log_level = LogType.INFORMATION
+
+    def __init__(self, log_level=None):
+            if log_level:
+                self.log_level = log_level
+
             self._plugins = []
+            
+            logging_plugin = TopKeyWords()
+            security_plugin = WordCounter()
+            summary_plugin = Summary()
+
+            # Plugins register themselves with the core
+            logging_plugin.register(self)
+            security_plugin.register(self)
+            summary_plugin.register(self)
 
     def register_plugin(self, plugin):
             self._plugins.append(plugin)
             print(f"Plugin {plugin.__class__.__name__} registered.")
 
     def execute_plugins(self, input: string, output: string):
-        print("Executing plugins...")
         for plugin in self._plugins:
-            plugin.execute(self, input, output)
+            print(f"Executing plugin: {plugin.__class__.__name__}")
+            plugin.execute(input, output)
         
-    def execute_plugin(self, plugin_name: string, input: string, output: string):
+    def execute_plugin(self, plugin_name: str, input: str, output: str):
         for plugin in self._plugins:
             if plugin.__class__.__name__ == plugin_name:
                 print(f"Executing plugin: {plugin_name}")
-                plugin.execute(self, input, output)
+                plugin.execute(input, output)
                 return
+        print(f"Plugin {plugin_name} not found.")
 
     def read_file(self, path: string):
         """
@@ -63,7 +81,7 @@ class CoreKernal:
         try:
             with open(path, "a+") as file:
                 file.write(f"{className}:\n{content}\n\n")
-            self.log(LogType.INFORMATION, f"File saved in {path}")
+            self.log(LogType.DEBUG, f"File saved in {path}")
         except FileNotFoundError:
             self.log(LogType.ERROR, f"File not found at {path}")
 
@@ -76,17 +94,22 @@ class CoreKernal:
     def log(self, type: LogType, content: string):
         """
         Logs a message with a specified log type.
+        Logs only message which are selected in within the log_level
 
         Args:
-            type (LogType): The type of log message (INFORMATION, WARNING, ERROR).
+            type (LogType): The type of log message (INFORMATION, WARNING, ERROR, DEBUG).
             content (str): The content of the log message.
 
         Returns:
             None
         """
-        if type == LogType.INFORMATION:
-            logging.info(content)
-        if type == LogType.WARNING:
-            logging.warning(content)
-        if type == LogType.ERROR:
-            logging.error(content)
+
+        log_levels = {
+            LogType.INFORMATION: 1,
+            LogType.WARNING: 2,
+            LogType.ERROR: 3,
+            LogType.DEBUG: 0,
+        }
+
+        if log_levels[type] >= log_levels[self.log_level]:
+            print(f"{type}: {content}")

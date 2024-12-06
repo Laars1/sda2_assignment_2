@@ -5,6 +5,7 @@ from common.plugin_base import Plugin
 
 class TopKeyWords(Plugin):
     def register(self, core):
+        self.core = core
         core.register_plugin(self)
 
     def execute(self, input, output):

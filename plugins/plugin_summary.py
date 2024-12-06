@@ -6,6 +6,7 @@ from transformers import pipeline
 
 class Summary(Plugin):
     def register(self, core):
+        self.core = core
         core.register_plugin(self)
 
     def execute(self, input: string, output: string):
@@ -19,15 +20,9 @@ class Summary(Plugin):
         """
         content = self.core.read_file(input)
 
-        words_count = int(len(content.split()))
-
-        # TODO: Check what parameters min_length & max_length actually do
-        min_length = round(words_count / 8)
-        max_length = round(words_count / 2)
-
-        summarizer = pipeline("summarization", model="Falconsai/text_summarization")  # load ML model
+        summarizer = pipeline("summarization", model="Falconsai/text_summarization", device="cpu", clean_up_tokenization_spaces=True)  # load ML model
         summary = summarizer(
-            content, max_length=max_length, min_length=min_length, do_sample=False
+            content, do_sample=False
         )
         self.core.save_file(str(summary), output, self.name)
 
