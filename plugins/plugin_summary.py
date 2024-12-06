@@ -5,6 +5,9 @@ from transformers import pipeline
 
 
 class Summary(Plugin):
+    def register(self, core):
+        core.register_plugin(self)
+
     def execute(self, input: string, output: string):
         """
         Executes the summarization process on the input file and saves the summary to the output file.

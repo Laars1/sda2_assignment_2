@@ -5,6 +5,25 @@ import string
 
 
 class CoreKernal:
+    def __init__(self):
+            self._plugins = []
+
+    def register_plugin(self, plugin):
+            self._plugins.append(plugin)
+            print(f"Plugin {plugin.__class__.__name__} registered.")
+
+    def execute_plugins(self, input: string, output: string):
+        print("Executing plugins...")
+        for plugin in self._plugins:
+            plugin.execute(self, input, output)
+        
+    def execute_plugin(self, plugin_name: string, input: string, output: string):
+        for plugin in self._plugins:
+            if plugin.__class__.__name__ == plugin_name:
+                print(f"Executing plugin: {plugin_name}")
+                plugin.execute(self, input, output)
+                return
+
     def read_file(self, path: string):
         """
         Reads the content of a file specified by the given path.

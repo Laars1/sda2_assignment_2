@@ -4,6 +4,9 @@ from common.plugin_base import Plugin
 
 
 class TopKeyWords(Plugin):
+    def register(self, core):
+        core.register_plugin(self)
+
     def execute(self, input, output):
         """
         Executes the top keywords extraction process.
