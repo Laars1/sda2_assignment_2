@@ -1,9 +1,7 @@
-from pathlib import Path
+import importlib
+import os
 from common.log_type import LogType
-from plugins.plugin_caseconvertertoupper import CaseConverterToUpper
-from plugins.plugin_summary import Summary
-from plugins.plugin_topkeywords import TopKeyWords
-from plugins.plugin_wordcounter import WordCounter
+from common.plugin_base import Plugin
 
 
 class CoreKernal:
@@ -14,12 +12,26 @@ class CoreKernal:
             self.log_level = log_level
 
         self._plugins = []
+        self.auto_register_plugins()
+        
+    def auto_register_plugins(self):
+        """
+        Dynamically discovers and registers all plugins that are subclasses of Plugin.
+        """
+        self.load_plugins("plugins")  # Load all from folder
 
-        # Plugins register themselves with the core
-        TopKeyWords().register(self)
-        WordCounter().register(self)
-        Summary().register(self)
-        CaseConverterToUpper().register(self)
+        for plugin_implementation in Plugin.__subclasses__():
+            plugin_instance = plugin_implementation()
+            plugin_instance.register(self)
+        
+    def load_plugins(self, plugin_directory):
+        """
+        Dynamically loads all plugin modules in the given directory.
+        """
+        for filename in os.listdir(plugin_directory):
+            if filename.endswith(".py") and filename != "__init__.py":
+                module_name = filename[:-3]  # Strip the .py extension
+                importlib.import_module(f"{plugin_directory}.{module_name}")
 
     def register_plugin(self, plugin):
         """
@@ -55,13 +67,13 @@ class CoreKernal:
         Executes a plugin by its name.
 
         This method iterates through the list of available plugins and executes the one that matches the given plugin name.
-        If the plugin is found, it calls the plugin's `execute` method with the provided input and output parameters.
+        If the plugin is found, it calls the plugin's execute method with the provided input and output parameters.
         If the plugin is not found, it prints a message indicating that the plugin was not found.
 
         Args:
             plugin_name (str): The name of the plugin to execute.
-            input (str): The input data to be passed to the plugin's `execute` method.
-            output (str): The output data to be passed to the plugin's `execute` method.
+            input (str): The input data to be passed to the plugin's execute method.
+            output (str): The output data to be passed to the plugin's execute method.
         """
         for plugin in self._plugins:
             if plugin.__class__.__name__ == plugin_name:
@@ -71,6 +83,29 @@ class CoreKernal:
                 return
         
         self.log(LogType.WARNING, f"Plugin {plugin_name} not found.")
+
+    def file_operation(self, path: str, mode: str, action):
+            """
+            Handles common file operations.
+
+            Args:
+                path (str): The file path to perform the operation on.
+                mode (str): The file operation mode ('r', 'a+', etc.).
+                action (function): A function that performs the desired file operation.
+
+            Returns:
+                Any: The result of the action function, if applicable.
+
+            Logs: Logs an error message if the operation fails.
+            """
+            
+            try:
+                with open(path, mode, encoding="utf8") as file:
+                    return action(file)
+            except FileNotFoundError:
+                self.log(LogType.ERROR, f"File not found at {path}")
+            except Exception as e:
+                self.log(LogType.ERROR, f"Error with file at {path}: {e}")
 
     def read_file(self, path: str):
         """
@@ -82,14 +117,10 @@ class CoreKernal:
         Returns:
             str: The content of the file.
 
-        Raises:
-            FileNotFoundError: If the file does not exist at the specified path.
+        Logs: Logs an error if the file cannot be read.
         """
-        try:
-            with open(path, "r", encoding="utf8") as file:
-                return file.read()
-        except FileNotFoundError:
-            self.log(LogType.ERROR, "File not found")
+        
+        return self.file_operation(path, mode="r", action=lambda file: file.read())
 
     def save_file(self, content: str, path: str, className: str):
         """
@@ -101,19 +132,18 @@ class CoreKernal:
             path (str): The path where the file will be saved.
             className (str): The name of the class to be included in the file content.
 
-        Raises:
-            FileNotFoundError: If the file at the specified path cannot be found.
-
         Logs:
             Logs an informational message when the file is successfully saved.
-            Logs an error message if the file cannot be found.
+            Logs an error message if the file cannot be written.
         """
-        try:
-            with open(path, "a+") as file:
-                file.write(f"{className}:\n{content}\n\n")
-            self.log(LogType.DEBUG, f"File saved in {path}")
-        except FileNotFoundError:
-            self.log(LogType.ERROR, f"File not found at {path}")
+    
+        self.file_operation(
+            path,
+            mode="a+",
+            action=lambda file: file.write(f"{className}:\n{content}\n\n"),
+        )
+        self.log(LogType.DEBUG, f"File saved in {path}")
+
 
     def to_lower(self, content: str):
         return content.lower()
@@ -130,8 +160,7 @@ class CoreKernal:
             type (LogType): The type of log message (INFORMATION, WARNING, ERROR, DEBUG).
             content (str): The content of the log message.
 
-        Returns:
-            None
+        Returns: None
         """
 
         log_levels = {
@@ -149,19 +178,13 @@ class CoreKernal:
         Prompts the user to choose a plugin or type 'ALL' to execute all plugins.
         Executes the selected plugin(s) on the default input/output files until 'QUIT' is entered.
 
-        Args:
-            None
+        Args: None
 
-        Returns:
-            None
+        Returns: None
 
-        Logs:
-            Logs an error if execution fails.
+        Logs: Logs an error if execution fails.
         """
-
-        default_input = "input.txt"
-        default_output = "output.txt"
-
+        default_input, default_output = "input.txt", "output.txt"
         while True:
             chosen_plugin = input("Choose a plugin (Enter name of Plugin, type 'ALL' to execute all, or 'QUIT' to exit): ")
             
