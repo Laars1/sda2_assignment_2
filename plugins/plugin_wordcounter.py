@@ -1,4 +1,3 @@
-from typing import Counter
 from common.plugin_base import Plugin
 from core.core import *
 
@@ -8,7 +7,7 @@ class WordCounter(Plugin):
         self.core = core
         core.register_plugin(self)
 
-    def execute(self, input, output):
+    def execute(self, input: str, output: str):
         """
         Executes the word counting process on the given input file and saves the result to the output file.
         Args:

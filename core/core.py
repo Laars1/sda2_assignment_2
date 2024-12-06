@@ -1,6 +1,5 @@
 from pathlib import Path
 from common.log_type import LogType
-import string
 from plugins.plugin_caseconvertertoupper import CaseConverterToUpper
 from plugins.plugin_summary import Summary
 from plugins.plugin_topkeywords import TopKeyWords
@@ -37,7 +36,7 @@ class CoreKernal:
         self._plugins.append(plugin)
         self.log(LogType.INFORMATION, f"Plugin {plugin.__class__.__name__} registered.")
 
-    def execute_plugins(self, input: string, output: string):
+    def execute_plugins(self, input: str, output: str):
         """
         Executes all registered plugins with the given input and output.
 
@@ -71,9 +70,9 @@ class CoreKernal:
                 self.log(LogType.INFORMATION, "Output is also visible in output.txt")
                 return
         
-        self.log(LogType.DEBUG, f"Plugin {plugin_name} not found.")
+        self.log(LogType.WARNING, f"Plugin {plugin_name} not found.")
 
-    def read_file(self, path: string):
+    def read_file(self, path: str):
         """
         Reads the content of a file specified by the given path.
 
@@ -92,7 +91,7 @@ class CoreKernal:
         except FileNotFoundError:
             self.log(LogType.ERROR, "File not found")
 
-    def save_file(self, content: string, path: string, className: string):
+    def save_file(self, content: str, path: str, className: str):
         """
         Saves the given content to a file at the specified path, appending the content
         to the file if it already exists.
@@ -116,13 +115,13 @@ class CoreKernal:
         except FileNotFoundError:
             self.log(LogType.ERROR, f"File not found at {path}")
 
-    def to_lower(self, content: string):
+    def to_lower(self, content: str):
         return content.lower()
 
-    def to_upper(self, content: string):
+    def to_upper(self, content: str):
         return content.upper()
 
-    def log(self, type: LogType, content: string):
+    def log(self, type: LogType, content: str):
         """
         Logs a message with a specified log type.
         Logs only message which are selected in within the log_level
@@ -148,7 +147,7 @@ class CoreKernal:
     def run(self):
         """
         Prompts the user to choose a plugin or type 'ALL' to execute all plugins.
-        Executes the selected plugin(s) on the default input/output files.
+        Executes the selected plugin(s) on the default input/output files until 'QUIT' is entered.
 
         Args:
             None
@@ -163,12 +162,18 @@ class CoreKernal:
         default_input = "input.txt"
         default_output = "output.txt"
 
-        chosen_plugin = input("Choose a plugin (Enter name of Plugin, if you want to extcute all - type ALL): ")
-        try:
-            if chosen_plugin == "ALL":
-                self.execute_plugins(default_input, default_output)
-            else:
-                self.execute_plugin(chosen_plugin, default_input, default_output)
+        while True:
+            chosen_plugin = input("Choose a plugin (Enter name of Plugin, type 'ALL' to execute all, or 'QUIT' to exit): ")
             
-        except Exception as e:
-            self.log(LogType.ERROR, f"Error: {e}")
+            if chosen_plugin == "QUIT":
+                print("Exiting program.")
+                break
+            
+            try:
+                if chosen_plugin == "ALL":
+                    self.execute_plugins(default_input, default_output)
+                else:
+                    self.execute_plugin(chosen_plugin, default_input, default_output)
+            
+            except Exception as e:
+                self.log(LogType.ERROR, f"Error: {e}")

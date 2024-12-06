@@ -1,4 +1,5 @@
 # SDA2 Assignment 2
+**NOTE:** The installation and execution process is tested with Windows
 
 This repository implements a microkernel architecture with plugins for various tasks. The core system manages plugins for tasks like logging, word counting, and summarization, which process input files and generate output.
 
@@ -27,6 +28,21 @@ Clone the repository:
 ```bash
 git clone https://github.com/Laars1/sda2_assignment_2.git
 ```
+
+## How to Run
+
+1. Ensure that your input file (`input.txt`) is prepared with content (e.g., a news article).
+2. Run the Python program using the following command:
+
+    ```bash
+    python main.py
+    ```
+
+3. Follow the prompt to choose a plugin. Type the plugin name, 'ALL' to execute all plugins, or 'QUIT' to exit.
+4. The results will be appended to the `output.txt` file.
+
+Ensure that your environment supports all the required libraries and configurations.
+
 
 ## Input and Output
 

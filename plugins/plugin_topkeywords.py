@@ -8,7 +8,7 @@ class TopKeyWords(Plugin):
         self.core = core
         core.register_plugin(self)
 
-    def execute(self, input, output):
+    def execute(self, input: str, output: str):
         """
         Executes the top keywords extraction process.
         This method reads the content from the input file, converts it to lowercase,

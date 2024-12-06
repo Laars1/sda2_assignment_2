@@ -1,4 +1,3 @@
-import string
 from common.log_type import LogType
 from common.plugin_base import Plugin
 from transformers import pipeline
@@ -9,7 +8,7 @@ class Summary(Plugin):
         self.core = core
         core.register_plugin(self)
 
-    def execute(self, input: string, output: string):
+    def execute(self, input: str, output: str):
         """
         Executes the summarization process on the input file and saves the summary to the output file.
         Args:

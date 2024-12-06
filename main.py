@@ -1,4 +1,3 @@
-from common.log_type import LogType
 from core.core import CoreKernal
 
 if __name__ == '__main__':

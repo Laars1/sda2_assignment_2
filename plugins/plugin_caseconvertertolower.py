@@ -1,4 +1,3 @@
-from typing import Counter
 from common.plugin_base import Plugin
 from core.core import *
 
@@ -8,7 +7,7 @@ class CaseConverterToLower(Plugin):
         self.core = core
         core.register_plugin(self)
 
-    def execute(self, input, output):
+    def execute(self, input: str, output: str):
         content = self.core.read_file(input)
 
         lower_content = self.core.to_lower(content)
