@@ -48,6 +48,8 @@ class CoreKernal:
         for plugin in self._plugins:
             self.log(LogType.DEBUG, f"Executing plugin: {plugin.__class__.__name__}")
             plugin.execute(input, output)
+            
+        self.log(LogType.INFORMATION, "Output is also visible in output.txt")
 
     def execute_plugin(self, plugin_name: str, input: str, output: str):
         """
@@ -66,6 +68,7 @@ class CoreKernal:
             if plugin.__class__.__name__ == plugin_name:
                 self.log(LogType.DEBUG, f"Executing plugin: {plugin_name}")
                 plugin.execute(input, output)
+                self.log(LogType.INFORMATION, "Output is also visible in output.txt")
                 return
         
         self.log(LogType.DEBUG, f"Plugin {plugin_name} not found.")
@@ -84,7 +87,7 @@ class CoreKernal:
             FileNotFoundError: If the file does not exist at the specified path.
         """
         try:
-            with open(path, "r") as file:
+            with open(path, "r", encoding="utf8") as file:
                 return file.read()
         except FileNotFoundError:
             self.log(LogType.ERROR, "File not found")
