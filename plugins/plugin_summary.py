@@ -24,10 +24,10 @@ class Summary(Plugin):
             model="Falconsai/text_summarization",
             device="cpu",
             clean_up_tokenization_spaces=True,
-        )  # load ML model
+        )  # Load ML model
         summary = summarizer(content, do_sample=False)
         self.core.save_file(str(summary), output, self.name)
 
-        log_message = "Summary: Generated summary from inout" + str(summary)
+        log_message = f"{self.name}: Generated summary from input: {summary}"
         self.core.log(LogType.INFORMATION, log_message)
         return summary

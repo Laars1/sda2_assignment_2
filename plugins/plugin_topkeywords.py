@@ -1,4 +1,4 @@
-from typing import Counter
+from typing import Counter, List, Tuple
 from common.log_type import LogType
 from common.plugin_base import Plugin
 
@@ -8,15 +8,17 @@ class TopKeyWords(Plugin):
         self.core = core
         core.register_plugin(self)
 
-    def execute(self, input: str, output: str):
+    def execute(self, input: str, output: str) -> List[Tuple[str, int]]:
         """
         Executes the top keywords extraction process.
-        This method reads the content from the input file, converts it to lowercase,
-        splits it into words, counts the occurrences of each word, and identifies the
+        Reads content from the input file, converts it to lowercase,
+        splits it into words, counts occurrences, and identifies the
         top 10 most common words. The result is saved to the output file and logged.
+
         Args:
             input (str): The path to the input file.
             output (str): The path to the output file.
+
         Returns:
             list: A list of tuples containing the top 10 most common words and their counts.
         """
@@ -29,8 +31,7 @@ class TopKeyWords(Plugin):
 
         self.core.save_file(str(most_common), output, self.name)
 
-        log_message = "TopKeyWords: Most common words from given input:" + str(
-            most_common
-        )
+        log_message = f"{self.name}: Most common words from given input: {most_common}"
         self.core.log(LogType.INFORMATION, log_message)
+
         return most_common

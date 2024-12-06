@@ -9,12 +9,10 @@ class CaseConverterToLower(Plugin):
 
     def execute(self, input: str, output: str):
         content = self.core.read_file(input)
-
         lower_content = self.core.to_lower(content)
         self.core.save_file(str(lower_content), output, self.name)
 
-        log_message = "CaseConverterToLower: Output is:" + str(
-            lower_content
-        )
+        log_message = f"{self.name}: Output is: {lower_content}"
         self.core.log(LogType.INFORMATION, log_message)
+
         return lower_content
