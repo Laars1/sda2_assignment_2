@@ -7,18 +7,17 @@ class Plugin(ABC):
         # self.core = core
         self.name = self.__class__.__name__
 
-    """
-    Register the plugin with the given core.
-    """
 
     @abstractmethod
     def register(self, core):
+        """
+        Register the plugin with the given core.
+        """
         pass
-
-    """
-    Execute the plugin with the given input and output.
-    """
 
     @abstractmethod
     def execute(self, input: string, output: string):
+        """
+        Execute the plugin with the given input and output.
+        """
         pass

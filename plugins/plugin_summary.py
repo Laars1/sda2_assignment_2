@@ -6,12 +6,6 @@ from transformers import pipeline
 
 class Summary(Plugin):
     def register(self, core):
-        """
-        Registers the plugin with the given core.
-
-        Args:
-            core: The core object to register the plugin with.
-        """
         self.core = core
         core.register_plugin(self)
 
