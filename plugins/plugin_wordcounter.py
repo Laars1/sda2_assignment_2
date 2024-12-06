@@ -5,6 +5,12 @@ from core.core import *
 
 class WordCounter(Plugin):
     def register(self, core):
+        """
+        Registers the plugin with the given core.
+
+        Args:
+            core: The core system with which the plugin will be registered.
+        """
         self.core = core
         core.register_plugin(self)
 
@@ -25,6 +31,12 @@ class WordCounter(Plugin):
 
         self.core.save_file(str(word_count), output, self.name)
 
-        log_message = "WordCounter: file from path "+input+" conatins "+str(word_count)+" words"
+        log_message = (
+            "WordCounter: file from path "
+            + input
+            + " conatins "
+            + str(word_count)
+            + " words"
+        )
         self.core.log(LogType.INFORMATION, log_message)
         return word_count

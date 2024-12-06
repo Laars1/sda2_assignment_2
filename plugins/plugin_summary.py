@@ -6,6 +6,12 @@ from transformers import pipeline
 
 class Summary(Plugin):
     def register(self, core):
+        """
+        Registers the plugin with the given core.
+
+        Args:
+            core: The core object to register the plugin with.
+        """
         self.core = core
         core.register_plugin(self)
 
@@ -20,10 +26,13 @@ class Summary(Plugin):
         """
         content = self.core.read_file(input)
 
-        summarizer = pipeline("summarization", model="Falconsai/text_summarization", device="cpu", clean_up_tokenization_spaces=True)  # load ML model
-        summary = summarizer(
-            content, do_sample=False
-        )
+        summarizer = pipeline(
+            "summarization",
+            model="Falconsai/text_summarization",
+            device="cpu",
+            clean_up_tokenization_spaces=True,
+        )  # load ML model
+        summary = summarizer(content, do_sample=False)
         self.core.save_file(str(summary), output, self.name)
 
         log_message = "Summary: Generated summary from inout" + str(summary)
