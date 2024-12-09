@@ -5,7 +5,7 @@ from core.core import *
 class CaseConverterToLower(Plugin):
     def register(self, core):
         self.core = core
-        core.register_plugin(self) # how to call this now?
+        core.register_plugin(self)
 
     def execute(self, input: str, output: str):
         content = self.core.read_file(input)

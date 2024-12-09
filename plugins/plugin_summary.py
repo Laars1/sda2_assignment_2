@@ -17,6 +17,8 @@ class Summary(Plugin):
         Returns:
             str: The generated summary of the input text.
         """
+        self.core.log(LogType.WARNING, "Make sure you have installed all the requirements from the README file. Otherwise this Plugin will not work!")
+        
         content = self.core.read_file(input)
 
         summarizer = pipeline(
