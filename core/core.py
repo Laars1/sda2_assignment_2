@@ -83,6 +83,11 @@ class CoreKernal:
                 return
         
         self.log(LogType.WARNING, f"Plugin {plugin_name} not found.")
+        
+    def list_plugins(self):
+        self.log(LogType.INFORMATION, "Here are all available plugins which can be executed:")
+        for plugin in self._plugins:
+            self.log(LogType.INFORMATION, f"Plugin {plugin.__class__.__name__}")
 
     def file_operation(self, path: str, mode: str, action):
             """
@@ -186,7 +191,7 @@ class CoreKernal:
         """
         default_input, default_output = "input.txt", "output.txt"
         while True:
-            chosen_plugin = input("Choose a plugin (Enter name of Plugin, type 'ALL' to execute all, or 'QUIT' to exit): ")
+            chosen_plugin = input("Choose a plugin (Enter name of Plugin, type 'ALL' to execute all, 'HELP' for instructions, or 'QUIT' to exit): ")
             
             if chosen_plugin == "QUIT":
                 print("Exiting program.")
@@ -195,6 +200,8 @@ class CoreKernal:
             try:
                 if chosen_plugin == "ALL":
                     self.execute_plugins(default_input, default_output)
+                elif chosen_plugin == "HELP":
+                    self.list_plugins()
                 else:
                     self.execute_plugin(chosen_plugin, default_input, default_output)
             
